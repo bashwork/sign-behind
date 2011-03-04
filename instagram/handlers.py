@@ -1,7 +1,7 @@
 from google.appengine.ext import webapp
 from signbehind.models import Profile
 from lib.lilcookies import LilCookies as Cookies
-from instagram.client import InstagramApi as Client
+from instagram.client import InstagramAPI as Client
 import settings
 
 __api = Client(**settings.INSTAGRAM_SETTINGS)
@@ -22,7 +22,7 @@ class InstagramDisconnectHandler(webapp.RequestHandler):
     :cookie ig_user_id: The instagram user identifier
     '''
     def get(self):
-        cookie = Cookie(self, settings.COOKIE_SECRET)
+        cookie = Cookies(self, settings.COOKIE_SECRET)
         id = cookie.get_secure_cookie(name = "ig_user_id")
         profile = Profile.all().filter('ig_user_id =', id).get()
 
@@ -48,7 +48,7 @@ class InstagramCallbackHandler(webapp.RequestHandler):
         profile.ig_access_token = access_token
         profile.put()
 
-        cookie = Cookie(self, settings.COOKIE_SECRET)
+        cookie = Cookies(self, settings.COOKIE_SECRET)
         cookie.set_secure_cookie(name = 'ig_user_id',
             value = user.id, expires_days = 365)
 

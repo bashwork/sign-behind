@@ -11,12 +11,12 @@ class IndexHandler(webapp.RequestHandler):
     :cookie ig_user_id: The instagram user identifier
     '''
     def get(self):
-        cookie = Cookie(self, settings.COOKIE_SECRET)
+        cookie = Cookies(self, settings.COOKIE_SECRET)
         id = cookie.get_secure_cookie(name = "ig_user_id")
         profile = Profile.all().filter('ig_user_id =', id).get()
         context  = {}
 
-        if profile.is_connected():
+        if profile and profile.is_connected():
             template = 'connected.html'
             context  = {
                 'profile': profile,
@@ -33,10 +33,10 @@ class ConnectHandler(webapp.RequestHandler):
     :cookie ig_user_id: The instagram user identifier
     '''
     def get(self):
-        cookie = Cookie(self, settings.COOKIE_SECRET)
+        cookie = Cookies(self, settings.COOKIE_SECRET)
         id = cookie.get_secure_cookie(name = "ig_user_id")
         profile = Profile.all().filter('ig_user_id =', id).get()
 
-        if profile.is_connected():
+        if profile and profile.is_connected():
             self.redirect('/')
         else: self.redirect('/instagram/auth')

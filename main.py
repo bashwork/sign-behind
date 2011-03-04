@@ -1,7 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-from signbehind.models import IndexHandler, ConnectHandler
-from instagram.models import *
+from signbehind.handlers import IndexHandler, ConnectHandler
+from instagram.handlers import *
 
 #---------------------------------------------------------------------------#
 # Route Configuration
