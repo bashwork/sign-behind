@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+	<title>{% block title %}sign-behind{% endblock %}</title>
+	<meta name="description" content="leave something behind" />
+	<meta name="author" content="bashwork" />
+	<meta name="Copyright" content="copyright bashwork {% now "Y" %}. All Rights Reserved." />
+	<meta name="DC.title" content="sign-behind" />
+	<meta name="DC.subject" content="Leave something behind" />
+	<meta name="DC.creator" content="bashwork" />
+	<link rel="shortcut icon" href="/favicon.ico"/>
+	<link rel="apple-touch-icon" href="/img/custom_icon.png"/>
+	<link rel="stylesheet" href="/css/main.css" />
+    {% block extra_meta %}{% endblock %}
+	
+	<!--[if lt IE 8]>
+	<script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE8.js"></script>
+	<![endif]-->
+</head>
+
+<body data-controller='{% block javascript_loader %}{% endblock %}'>
+  <div id="container" class="container_12">
+  {% block full_content %}
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- site header -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <header class="grid_12">
+      <p id="sign-up-header">
+        {% if user.is_authenticated %}
+          Signed in as <a href="/users/{{ user.username }}/">{{ user.username }}</a>
+          | <a href="/accounts/logout/">Logout</a>
+        {% else %}Already have an account?
+          <a href="/accounts/login/">Sign In</a> or
+          <a href="/accounts/register/">Join Now</a>
+        {% endif %}
+      </p>
+      <h1><a href="/"><span>{{ site.name }}</span></a></h1>
+      <div class="clearfix"></div>
+
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/users/">Travelers</a></li>
+          <li><a href="/about/help/">Help</a></li>
+          <li><a href="/about/tour/">Tour</a></li>
+          {% block extra_navigation %}{% endblock %}
+        </ul>
+      </nav>
+      <h2>{% block content_title %}{% endblock %}</h2>
+    </header>
+    
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- site content -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section id="content">
+      {% block content %}{% endblock %}
+    <div class="clearfix"></div>
+    </section>
+
+  {% endblock %}
+    
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- site footer -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <footer class="grid_12">
+    {% block full_footer %}
+      <ul id="social-network">
+	    <li class="twit"><a href="http://twitter.com/bashwork/"><span>Twitter</span></a></li>
+	    <li class="git"><a href="http://github.com/bashwork/"><span>Github</span></a></li>
+      </ul>
+      <p>copyright &copy; {% now "Y" %} bashwork - powered by spunk and vigor</p>
+      {% block extra_footer %}{% endblock %}
+    {% endblock %}
+    </footer>
+
+    <div style='visibility:hidden;'>
+      {% block extra_dom %}{% endblock %}
+    </div>
+
+  </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- javascript includes -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+
+    {% block extra_javascript %}{% endblock %}
+    <script src="/js/ig-min.js"></script>
+    <script src="/js/jquery-instagram.js"></script>
+    <script src="/js/site.js"></script>
+    <script>
+    $(document).ready(function() {
+      {% block javascript_ready %}{% endblock %}
+    });
+    </script>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- javascript analytics -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19977534-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+</body>
+</html>

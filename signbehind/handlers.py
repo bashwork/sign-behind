@@ -4,7 +4,7 @@ from lib.lilcookies import LilCookies as Cookies
 import settings
 
 
-class MainHandler(webapp.RequestHandler):
+class IndexHandler(webapp.RequestHandler):
     ''' The main landing page
 
     :uri: ../
