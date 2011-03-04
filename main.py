@@ -1,5 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+from signbehind.models import MainHandler, ConnectHandler
+from instagram.models import *
 
 #---------------------------------------------------------------------------#
 # Route Configuration
@@ -7,11 +9,9 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 application = webapp.WSGIApplication([
     ('/', MainHandler),
     ('/connect', ConnectHandler),
-    ('/instagram/auth', InstagramAuth),
-    ('/instagram/disconnect', InstagramDisconnect),
-    ('/instagram/callback', InstagramCallback),
-    ('/instagram/subscribe', InstagramSubscribe),
-    ('/instagram/push_callback', InstagramPushCallback),
+    ('/instagram/auth', InstagramAuthHandler),
+    ('/instagram/disconnect', InstagramDisconnectHandler),
+    ('/instagram/callback', InstagramCallbackHandler),
     ], debug=True)
 
 #---------------------------------------------------------------------------#
