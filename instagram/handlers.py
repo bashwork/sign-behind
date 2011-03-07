@@ -4,7 +4,7 @@ from lib.lilcookies import LilCookies as Cookies
 from instagram.client import InstagramAPI as Client
 import settings
 
-__api = Client(**settings.INSTAGRAM_SETTINGS)
+_api = Client(**settings.INSTAGRAM_SETTINGS)
 
 class InstagramAuthHandler(webapp.RequestHandler):
     ''' Handler for connecting a user to the instagram session
@@ -12,7 +12,7 @@ class InstagramAuthHandler(webapp.RequestHandler):
     :uri: ../instagram/auth
     '''
     def get(self):
-        self.redirect(__api.get_authorize_url())
+        self.redirect(_api.get_authorize_url())
 
 class InstagramDisconnectHandler(webapp.RequestHandler):
     ''' Handler for disconnecting a user from their instagram
@@ -34,7 +34,7 @@ class InstagramCallbackHandler(webapp.RequestHandler):
     '''
     def get(self):
         code = self.request.get('code')
-        token = __api.exchange_code_for_access_token(code)
+        token = _api.exchange_code_for_access_token(code)
         if not token: self.redirect('/error')
 
         client = Client(access_token=token)
